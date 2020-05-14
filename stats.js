@@ -9,11 +9,20 @@ export default class stats {
 
 /**
 *@param {arr} [retrieved data]
-*@return {Number}
+*@return {Number, Array}
 */
 
-//calculate the sum of the values of an array
-sum = function (arr) {
+/**
+ * output of data
+ */
+output = function(){
+    return this.data;
+}
+
+/**
+ * calculate the sum of the values of an array
+ */
+ sum = function (arr) {
     var sum = 0;
     var i = arr.length;
     while (--i >=0)
@@ -21,7 +30,9 @@ sum = function (arr) {
     return sum;
 };
 
-//calculate statistic mean of an array
+/**
+*calculate statistic mean of an array
+*/
 mean = function(arr) {
     var total = 0;
     total = this.sum(arr)
@@ -29,7 +40,9 @@ mean = function(arr) {
     return m;
 };
 
-//calculate the standard deviation of an array
+/** 
+ * calculate the standard deviation of an array
+ */
 stddev = function (arr) {
     var mean = this.mean();
     var SD = 0;
@@ -40,7 +53,9 @@ stddev = function (arr) {
     return SD=Math.sqrt(Math.sum(nex)/nex.length);
 };
 
-//calculate the squared sum of the values of an array
+/**
+ * calculate the squared sum of the values of an array
+ */
 sumsqrd = function(arr) {
     var sum = 0;
     var i = arr.length;
@@ -49,7 +64,9 @@ sumsqrd = function(arr) {
     return sum;
 };
 
-//minimum value of an array
+/**
+ * minimum value of an array
+ */
 min = function(arr) {
     var low = arr[0];
     var i=0;
@@ -59,7 +76,9 @@ min = function(arr) {
     return low;
 };
 
-//maximum value of an array
+/**
+ * maximum value of an array
+ */
 max = function(arr) {
     var high=arr[0];
     var i=0;
@@ -69,7 +88,9 @@ max = function(arr) {
     return high
 };
 
-//unique values in an array
+/**
+ * unique values in an array
+ */
 unique = function(arr) {
     var un = {}, _arr = [];
     for(var i=0; i<arr.length; i++){
@@ -81,7 +102,9 @@ unique = function(arr) {
     return _arr;
 };
 
-//standardize data
+/**
+ * standardize data
+ */
 standardize = function(arr) {
     var _arr = [];
     var stddev = this.stddev();
@@ -92,9 +115,10 @@ standardize = function(arr) {
     return _arr;
 };
 
-//quantile calculator for the given data, q in number (ie. 25, 75)
-//adapted from simple statistics with php
-
+/**
+ * quantile calculator for the given data, q in number (ie. 25, 75)
+ * adapted from simple statistics with php
+ */
 quantile = function(arr,q){
     var _arr=arr.slice();
     _arr.sort(function(a,b){
@@ -110,7 +134,9 @@ quantile = function(arr,q){
     }   
 };
 
-//obtain outliers in dataset
+/**
+ * obtain outliers in dataset
+ */
 outliers = function(arr) {
     var Q_25 = this.quantile(arr,0.25);
     var Q_75 = this.quantile(arr,0.75);
