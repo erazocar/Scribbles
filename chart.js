@@ -24,6 +24,7 @@ chart = function (arr) {
         points: options.points,
         autoscale: true
     });
-    return chart.render();
+    return chart.render(arr);
 }
+
 }

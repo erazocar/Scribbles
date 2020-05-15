@@ -15,7 +15,7 @@ export default class stats {
 /**
  * output of data
  */
-output = function(){
+output = function(arr){
     return this.data;
 }
 
@@ -149,4 +149,5 @@ outliers = function(arr) {
     }
     return out;
 };
+
 }

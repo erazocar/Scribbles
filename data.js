@@ -16,8 +16,7 @@ output = function() {
 
 location = function() {
     var cityname = "";
-    var base_url = "";
-    var units= extend ;     
+    var base_url = "";  
 }
 
 getJSON = function(url, callback) {
@@ -35,6 +34,13 @@ getJSON = function(url, callback) {
     xhr.send();    
 };
 
+json2array = function(json){
+    var r = [];
+    for (var i in json) {
+        r.push([i, json[i]]);
+    };
+    return r;
+}
 
 getCurrentWeather(location) {
     return "Weather is sunny for "+location+"based on the data of "+this.source;
