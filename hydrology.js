@@ -1,23 +1,25 @@
-class hydro {
+export default class hydro {
 
     /**Total precipitation: arithmetic sum of the total amount of precipitation during an event.
      * It is also used as a helper function.
      * @param {arr} array with precipitation event.
      * @returns {var} total amount of precipitation during an event on a given station. 
      */
+
     static totalprec (arr) {
         var sum=0;
         var k = arr.length
         while (--k >=0) {
-            sum+=minarr[k]
+            sum+=arr[k]
         };
         return sum;
     };
-    
+
     /**Arithmetic mean: computation of aereal mean precipitation for a river basin given it has 2 or more different stations.
      * @param {array} object with precipitation with equal amounts of data from different rain gauges.
      * @returns {array} object with average precipitaiton for a specific time series.
      */
+
     static arithmetic (arr) {
         var average = [];
         var final = [];
@@ -30,15 +32,17 @@ class hydro {
         for (var h = 0; h<average.length;h+=n){
             var minarr = average.slice(h,h+n);
             final[h] = this.totalprec(minarr)/minarr.length;
-            var fil = final.filter(function (el) {return el != null});
-        }; return fil;
-     };
-
+            var filtered = final.filter(function (el) {return el != null});
+        }; 
+        return filtered;
+    };
+	 
     /**Thiessen polygon: calculates average precipitation for a basin considering there is
       * one station per sub basin.
       * @param {params} parameter object which has the time series data and area per subbasin.
       * @returns {array} time series of average precipitation over whole sub basin.
       */
+
      static thiessen (params) {
         var precs = params["rainfall"];
         var areas = params["areas"];
@@ -50,14 +54,17 @@ class hydro {
                 res[i][j]= precs[i][j] * areas[i];
                 out[j] += res[i][j] / totarea;
             };
-        }; return out;
+        }; 
+        return out;
     };
 
     /** bucketmodel: does simple rainfall-runoff analyses over a rainfall dataset given landuse, baseflow and infiltration capacity.
      * @param {param} parameter object landuse, rainfall, infiltration capacity and baseflow.
      * @returns {array} values for runoff as time series.
      */
+
     static bucketmodel (params) {
+
         //initial parameters
         let rainfall = params["rainfall"];
         let n = rainfall.length;
@@ -71,6 +78,7 @@ class hydro {
         //infiltration capacities for agriculture, bare rock, grassland, forest and
         //moorland, respectively.
         let FieldCaps = [5,50,25,25,5];
+
         //arrays and variables
         var initial=Array(landuse.length).fill(0).map(()=>Array(n).fill(0));
         var interflow = Array(landuse.length).fill(0).map(()=>Array(n).fill(0));
@@ -78,11 +86,12 @@ class hydro {
         var totalflow = Array(landuse.length).fill(0).map(()=>Array(n).fill(0));
         var totalrunoff = Array(landuse.length).fill(0).map(()=>Array(n).fill(0));
         
-        //initial moisture
+        // initial moisture
         for (var i = 0; i < FieldCaps.length; i++){
             initial[i][0] =  FieldCaps[i]*landuse[i]+rainfall[0]-evapodata[0]
         };
         
+        //initial soil moisture
         for (var k = 0;k<FieldCaps.length;k++) {
             if (initial[k][0] > FieldCaps[k]) {
                 overflow[k][0] = initial[k][0]-FieldCaps[k];
@@ -126,8 +135,8 @@ class hydro {
             totalrunoff[q] = totalflow[0][q] * landuse[0] + totalflow[1][q] * landuse[1]
             + totalflow[2][q] * landuse[2] + totalflow[3][q] * landuse[3]
             + totalflow[4][q] * landuse[4];
-        };
-        
+        }; 
         return totalrunoff;
-        };
+    };
+    
 }
