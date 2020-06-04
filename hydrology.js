@@ -32,7 +32,7 @@ export default class hydro {
         };
         array[to] = target;
         return array;
-      };
+    };
 
     /**Arithmetic mean: computation of aereal mean precipitation for a river basin given it has 2 or more different stations.
      * @param {array} object with precipitation with equal amounts of data from different rain gauges.
@@ -134,8 +134,6 @@ export default class hydro {
             throw new Error("Please use available distributions!");
         }; 
      };
-
-
 
     /**unithydrocons = Unit hydrograph NRCS constructor depending on the 
      * physical characteristics of a regularly shaped basin. Calculated from (NEH, 2007)
@@ -249,7 +247,6 @@ export default class hydro {
         finalhydro[0].slice().reduce((prev,curr,i) => finalhydro[0][i] = Number((prev + curr).toFixed(2), 0));
         return finalhydro;
      };
-
 
     /** bucketmodel: does simple rainfall-runoff analyses over a rainfall dataset given landuse, baseflow and infiltration capacity.
      * @param {param} parameter object landuse, rainfall, infiltration capacity and baseflow.
